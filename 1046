@@ -1,0 +1,25 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	int n,m,t;
+	int i = 1;
+	double l;
+	scanf("%d",&t);
+	while(t--)
+	{
+
+		cin >> n  >>m;
+		if(n%2==1 && m%2 ==1)
+			l = n*m-1+sqrt(2.0);
+		else
+			l = n*m;
+		cout << "Scenario #"<< i++ << ":"<<endl;
+		cout << setiosflags(ios::fixed) << setprecision(2) << l << endl<<endl; 
+		//setiosflags(ios::fixed)固定浮点输出,setprecision()保留小数点后几位，没有前面那个的话就会用科学计数法了。
+	
+	}
+	return 0;
+}
