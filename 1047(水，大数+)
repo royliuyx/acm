@@ -1,0 +1,89 @@
+//0xa 是换行符
+#include<iostream>
+#include<string>
+using namespace std;
+int longintadd(string &res , string &tmp)
+{
+	int c = 0;
+	int a;
+	int tmpl = tmp.length();
+	int resl = res.length();
+	int d = tmpl>resl ? (tmpl-resl):(resl - tmpl);
+	int m = tmpl>resl ? resl : tmpl;
+	reverse(res.begin() , res.end());
+	reverse(tmp.begin() , tmp.end());
+	for(int i = 0 ; i < m ; i ++)
+	{
+		a = tmp[i] - '0' + res[i] - '0' + c;
+
+		c = a / 10;
+		a = a % 10;
+		res[i] = a + '0';
+	}
+	switch(c){
+	case 0:
+		if(resl >= tmpl)
+		{
+			reverse(res.begin(),res.end());
+			return 0;
+		}
+		else
+		{
+			string s(tmp,m,d);
+			res.append(s);
+			reverse(res.begin(),res.end());
+			return 0;
+		}
+	case 1:
+		if(resl == tmpl)
+		{
+			res.append("1");
+			reverse(res.begin(),res.end());
+			return 0;
+		}
+		if(resl > tmpl)
+		{
+			res[m] = res[m] + 1;
+			reverse(res.begin(),res.end());
+			return 0;
+		}
+		if(resl < tmpl)
+		{
+			tmp[m] = tmp[m] + 1;
+			string s(tmp,m,d);
+			res.append(s);
+			reverse(res.begin(),res.end());
+			return 0;
+		}
+	}
+
+}
+int main()
+{
+	int n;
+	scanf("%d",&n);
+	while(n)
+	{
+		string tmp;
+		string res(1,'0');
+		while(1)
+		{
+			cin >> tmp;
+			if(tmp == "0")
+			{
+				if(n != 1)
+				cout << res << endl << endl;
+				else
+				cout << res << endl;
+				break;
+			}
+			else{
+				longintadd(res,tmp);
+				tmp.clear();
+			}
+		}
+		n--;
+	}
+
+	return 0;
+}
