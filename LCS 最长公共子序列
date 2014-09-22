@@ -1,0 +1,71 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+int main()
+{
+	string x;
+	string y;
+	string s;
+	//	string z;
+	cin >> x >> y;
+	int c[101][101];
+	int z[101][101] = {0};  //1向左，2向左上，3向上。
+	int numx = x.size();
+	int numy = y.size();
+	for(int i = 0 ; i <= numy ; i++)c[0][i] = 0;
+	for(int i = 1 ; i <= numx ; i++)c[i][0] = 0;
+	for(int i = 1 ; i <= numx ; i++)
+		for(int j = 1 ; j <= numy ; j++)
+		{
+			if(x[i-1] == y[j-1])
+			{
+				c[i][j] = c[i-1][j-1] + 1;
+				z[i][j] = 2;
+			} 
+			else 
+			{
+				if(c[i-1][j] >= c[i][j-1]) //注意方向别搞错，要向大的那边走
+				{
+					z[i][j] = 3;
+					c[i][j] = c[i-1][j];
+				}
+				else
+				{
+					z[i][j] = 1;
+					c[i][j] = c[i][j-1];
+				}
+			}
+		};
+	/*for(int i = 0 ;i <= numx ; i++ )
+	{
+		 for(int j = 0 ; j <= numy ; j++)cout<<z[i][j] << " " ;
+		 cout << endl;
+	}*/
+	int i = numx;
+	int j = numy;
+	while(i != 0 && j != 0)
+	{
+		switch(z[i][j])
+		{
+		case 1:
+			j--;
+			break;
+		case 2:
+			s = y[j-1] + s;
+			i--;
+			j--;
+			break;
+		case 3:
+			i--;
+			break;
+		}
+
+	}
+
+
+	cout << c[numx][numy]<< endl;
+	cout << s << endl;
+
+	return 0;
+}
