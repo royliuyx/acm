@@ -1,0 +1,59 @@
+
+#include<iostream>
+using namespace std;
+const int M = 1000000;
+long tmp[2][M];
+int a[M];
+inline long max(long &a ,long &b)
+{
+	return a>b?a:b;
+}
+int main()
+{
+	int m,n,t;
+
+	long max_,res;
+	while(cin >> m , cin >>n)
+	{
+		t = 1 ;
+		for(int i = 0 ; i < n-m ;i ++)
+		{
+			cin >> a[i];
+			tmp[0][i] = 0;
+		}
+		for(int i = n-m; i < n ; i ++)
+		{
+			cin >> a[i];
+		}
+		for(int i = 0 ; i < m ;i++)        // i=0 的时候表示的是分1块的情况。
+		{
+			if(i == 0)
+			{
+				max_ = -32768l;
+				tmp[t][0] = a[0];
+			}
+			else 
+			{
+				max_ = tmp[1-t][i-1];
+				tmp[t][i] = tmp[1-t][i-1]+a[i];
+			}
+			for(int j = i + 1 ; j <= n-m+i ; j++)
+			{
+
+				max_ = max(max_ , tmp[1-t][j-1]);
+				tmp[t][j] = max(max_ , tmp[t][j-1]) + a[j];
+
+			}
+			t = 1 - t;
+		}
+		t = 1 - t;
+		res = -32768;
+		//res = 0 ;
+		for(int i = m-1 ; i < n ; i ++)
+		{
+			res =max(tmp[t][i],res);
+		}
+		cout << res << endl;
+	}
+	return 0;
+}
